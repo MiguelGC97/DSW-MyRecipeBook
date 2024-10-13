@@ -10,7 +10,7 @@ class Ingredient extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'i_name',
         'type',
     ];
 }

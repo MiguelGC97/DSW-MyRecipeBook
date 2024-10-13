@@ -10,7 +10,7 @@
     <h1>List of recipes</h1>
     <ul>
         @foreach ($recipes as $r)
-            <li>{{ $recipe->name }} {{ $recipe->time }}</li>
+            <li>{{ $r->r_name }} {{ $r->time }}</li>
         @endforeach
     </ul>
 </body>

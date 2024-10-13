@@ -23,7 +23,7 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $recipe = new Recipe;
-        $recipe->name = $request->input('name');
+        $recipe->r_name = $request->input('r_name');
         $recipe->time = $request->input('time');
         $recipe->save();
 
@@ -47,7 +47,7 @@ class RecipeController extends Controller
     public function update(Request $request, $id)
     {
         $recipe = Recipe::findOrFail($id);
-        $recipe->name = $request->input('name');
+        $recipe->r_name = $request->input('r_name');
         $recipe->time = $request->input('time');
         $recipe->save();
 

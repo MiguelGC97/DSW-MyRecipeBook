@@ -22,7 +22,7 @@ class IngredientController extends Controller
     public function store(Request $request)
     {
         $ingredient = new Ingredient;
-        $ingredient->name = $request->input('name');
+        $ingredient->i_name = $request->input('i_name');
         $ingredient->type = $request->input('type');
         $ingredient->save();
 
@@ -46,7 +46,7 @@ class IngredientController extends Controller
     public function update(Request $request, $id)
     {
         $ingredient = Ingredient::findOrFail($id);
-        $ingredient->name = $request->input('name');
+        $ingredient->i_name = $request->input('i_name');
         $ingredient->type = $request->input('type');
         $ingredient->save();
 
