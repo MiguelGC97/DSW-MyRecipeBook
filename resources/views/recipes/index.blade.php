@@ -24,27 +24,31 @@
         </ul>
     </div>
 
-    <x-bladewind::card>
+    @foreach ($recipes as $recipe)
+        <x-bladewind::card>
 
-        <x-bladewind::list-view>
+            <x-bladewind::list-view>
 
-            <x-bladewind::list-item>
+                <x-bladewind::list-item>
 
-                <x-bladewind::avatar
-                    size="regular"
-                    image="https://www.seriouseats.com/thmb/2nouHHsjM0bN1vwXMOZGUkLFsJ8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__recipes__images__2017__12__20171115-chicken-soup-vicky-wasik-11-80db1a04d84a43a089e0559efdddd517.jpg"/>
-                <div class="ml-3">
-                    <div class="text-sm font-medium text-slate-900">
-                        {{ $recipe->r_name }}
+                    <x-bladewind::avatar
+                        size="regular"
+                        image="{{ $recipe->image_url }}"/>
+                    <div class="ml-3">
+                        <div class="text-sm font-medium text-slate-900">
+                            {{ $recipe->r_name }}
+                        </div>
+                        <div class="text-sm text-slate-500 truncate">
+                            <x-bladewind::icon name="clock" />{{ $recipe->time }} mins
+                        </div>
                     </div>
-                    <div class="text-sm text-slate-500 truncate">
-                        kabutey@gmail.com
-                    </div>
-                </div>
 
-            </x-bladewind::list-item>
-        </x-bladewind::list-view>
-    </x-bladewind::card>
+                </x-bladewind::list-item>
+
+            </x-bladewind::list-view>
+            
+        </x-bladewind::card>
+    @endforeach
 
     
 

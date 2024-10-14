@@ -12,5 +12,6 @@ class Recipe extends Model
     protected $fillable = [
         'r_name',
         'time',
+        'image_url'
     ];
 }

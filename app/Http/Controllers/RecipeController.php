@@ -27,6 +27,11 @@ class RecipeController extends Controller
         $recipe = new Recipe;
         $recipe->r_name = $request->input('r_name');
         $recipe->time = $request->input('time');
+        if ($request->has('image_url') && $request->input('image_url') != '') {
+            $recipe->image_url = $request->input('image_url');
+        } else {
+            $recipe->image_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/800px-Good_Food_Display_-_NCI_Visuals_Online.jpg';
+        }
         $recipe->save();
 
         return redirect()->route('recipes.index');
