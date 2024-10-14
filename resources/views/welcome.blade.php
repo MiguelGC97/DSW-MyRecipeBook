@@ -5,12 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-
+        @extends('layouts.app')
+    </head>
     <body>
 
-        @include('partials.nav')
-
         <h1>Home</h1>
+
+        @include('partials.nav')
 
     </body>
 </html>
