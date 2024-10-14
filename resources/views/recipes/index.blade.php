@@ -7,11 +7,20 @@
     <title>Recipes</title>
 </head>
 <body>
-    <h1>List of recipes</h1>
-    <ul>
-        @foreach ($recipes as $r)
-            <li>{{ $r->r_name }} {{ $r->time }}</li>
-        @endforeach
-    </ul>
+
+    <h1>List of Recipes</h1>
+    
+    <div>
+        <ul>
+            @foreach ($recipes as $recipe)
+                <li>
+                    <a href="{{ route('recipes.show', $recipe->id) }}">
+                        {{ $recipe->r_name }} ({{ $recipe->time }} mins)
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+
 </body>
 </html>
