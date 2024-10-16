@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Ingredient;
 
-use App\Models\Recipe;
+use App\Models\RecipeIngredients;
 
 class IngredientController extends Controller
 {
@@ -30,11 +30,10 @@ class IngredientController extends Controller
 
         $recipeId = $request->input('recipe_id');
         
-        DB::table('recipe_ingredients')->insert([
-            'r_id' => $recipeId,
-            'i_id' => $ingredient->id,
-            'quantity' => $request->input('quantity'),
-        ]);
+        $RecipeIngredients = new RecipeIngredients;
+        $RecipeIngredients->r_id = $recipeId;
+        $RecipeIngredients->i_id = $ingredient->id;
+        $RecipeIngredients->quantity = $request->input('quantity');
 
         return redirect()->route('recipes.show', $recipeId);
     }

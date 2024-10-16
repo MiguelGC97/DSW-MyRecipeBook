@@ -14,6 +14,8 @@ Route::get('/', function () {
 
 Route::resource('recipes', RecipeController::class);
 
+Route::get('recipes', IngredientController)
+
 Route::resource('ingredients', IngredientController::class);
 
 Route::resource('steps', StepController::class);

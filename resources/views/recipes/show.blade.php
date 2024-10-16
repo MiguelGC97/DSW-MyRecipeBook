@@ -21,30 +21,60 @@
             <div class="mt-6">
                 <h3 class="text-lg font-semibold text-blue-900">Ingredients</h3>
 
-                <x-bladewind::button show_close_icon="true" onclick="showModal('add-ingredient')">
+                {{-- <x-bladewind::button show_close_icon="true" onclick="showModal('add-ingredient')">
                     Add ingredient
                 </x-bladewind::button>
 
-                <x-bladewind::modal backdrop_can_close="false" name="add-ingredient" ok_button_action="saveProfile()"
-                    ok_button_label="Update" close_after_action="false">
+                <x-bladewind::modal backdrop_can_close="false" name="add-ingredient" ok_button_action="{{ route('ingredients.store') }}"
+                    ok_button_label="Add" close_after_action="false" blur_size="none">
 
-                    <form method="post" action="" class="profile-form">
+                    <form method="post" action="" class="ingredient-form">
                         @csrf
                         <b class="mt-0">New Ingredient</b>
                         <div class="grid grid-cols-2 gap-4 mt-6">
-                            <x-bladewind::input required="true" name="i-name"
+                            <x-bladewind::input required="true" name="i-name" type="text"
                                 error_message="Please enter a name" label="Ingredient name" />
 
-                            <x-bladewind::input required="true" name="type" error_message="Please enter a type"
+                            <x-bladewind::input required="true" name="type" type="text" error_message="Please enter a type"
                                 label="Ingredient type" />
                         </div>
-                        <x-bladewind::input required="true" name="quantity" error_message="Please enter a quantity"
+
+                        <x-bladewind::input required="true" name="quantity" type="text" error_message="Please enter a quantity"
                             label="Quantity" />
+
                     </form>
 
-                </x-bladewind::modal>
+                </x-bladewind::modal> --}}
 
+                <x-bladewind::card>
+                    <form method="POST" action="{{ route('ingredients.store') }}" class="signup-form">
+                        @csrf
+                        <b class="mt-0">New Ingredient</b>
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            <x-bladewind::input required="true" name="i-name" type="text"
+                                error_message="Please enter a name" label="Ingredient name" />
 
+                            <x-bladewind::input required="true" name="type" type="text" error_message="Please enter a type"
+                                label="Ingredient type" />
+                        </div>
+
+                        <x-bladewind::input required="true" name="quantity" type="text" error_message="Please enter a quantity"
+                            label="Quantity" />
+
+                            <div class="text-center">
+
+                                <x-bladewind::button
+                                    name="btn-save"
+                                    has_spinner="true"
+                                    type="primary"
+                                    size="tiny"
+                                    can_submit="true"
+                                    class="mt-3">
+                                    Add ingredient
+                                </x-bladewind::button>
+                
+                            </div>
+                </x-bladewind::card>
 
             </div>
 
