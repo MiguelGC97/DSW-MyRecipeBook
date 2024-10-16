@@ -37,6 +37,22 @@ class RecipeController extends Controller
         return redirect()->route('recipes.index');
     }
 
+    public function storeIngredient(Request $request)
+    {
+        $recipeId = $request->input('recipe_id');
+
+        $recipe = Recipe::find($recipeId);
+        $ingredients = json_decode($recipe->ingredients, true);
+
+        $newIngredient = $request->input('ingredient');
+        $ingredients[] = $newIngredient;
+
+        $recipe->ingredients = json_encode($ingredients);
+        $recipe->save();
+
+        return redirect()->route('recipes.show', ['recipe' => $recipeId]);
+    }
+
     public function show($id)
     {
         $recipe = Recipe::findOrFail($id);

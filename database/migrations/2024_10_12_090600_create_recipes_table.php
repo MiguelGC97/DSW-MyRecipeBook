@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('r_name');
             $table->integer('time');
             $table->string('image_url', 2048)->nullable();
+            $table->json('ingredients')->nullable();
+            $table->json('steps')->nullable();
             $table->timestamps();
         });
     }
