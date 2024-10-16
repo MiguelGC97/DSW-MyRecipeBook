@@ -10,7 +10,7 @@ use App\Http\Controllers\StepController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::resource('recipes', RecipeController::class);
 

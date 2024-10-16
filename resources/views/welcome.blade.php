@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layout')
 
-        <title>Laravel</title>
-        @extends('layout')
-    </head>
-    <body>
+@section('pageTitle', 'Home')
 
-        <h1>Home</h1>
+@section('content')
 
-        @include('partials.nav')
-
-    </body>
-</html>
+@endsection

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Ingredient;
 
+use App\Models\Recipe;
+
 class IngredientController extends Controller
 {
     public function index()
@@ -26,7 +28,15 @@ class IngredientController extends Controller
         $ingredient->type = $request->input('type');
         $ingredient->save();
 
-        return redirect()->route('recipes.index');
+        $recipeId = $request->input('recipe_id');
+        
+        DB::table('recipe_ingredients')->insert([
+            'r_id' => $recipeId,
+            'i_id' => $ingredient->id,
+            'quantity' => $request->input('quantity'),
+        ]);
+
+        return redirect()->route('recipes.show', $recipeId);
     }
 
     public function show($id)
@@ -53,7 +63,7 @@ class IngredientController extends Controller
         return redirect()->route('recipe.index');
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $ingredient = Ingredient::findOrFail($id);
         $ingredient->delete();
