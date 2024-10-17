@@ -6,11 +6,18 @@
 
 @section('content')
 
+<div class="flex flex-col items-center mt-2 mb-2">
+    <a href="{{ route('recipes.create') }}" title="Create New Recipe" class="mr-2">
+        <x-bladewind::icon name="open-recipe-book" dir="assets/icons" class="h-8 w-8"/>
+    </a>
+    
+</div>
+
     @foreach ($recipes as $recipe)
 
     <div class="flex flex-col w-full items-center space-y-4">
 
-        <x-bladewind::card class="w-full">
+        <x-bladewind::card class="w-full mb-4">
 
             <x-bladewind::list-view>
 
@@ -58,6 +65,7 @@
         </x-bladewind::card>
 
     @endforeach
+
 
 </div>
 

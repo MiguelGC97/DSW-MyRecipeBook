@@ -21,11 +21,6 @@
 </head>
 
 <body>
-    
-    {{-- <div class="container">
-        <h1>@yield('pageTitle')</h1>
-        @yield('content')
-    </div> --}}
 
     <div class="flex justify-center mb-4 mt-8">
 

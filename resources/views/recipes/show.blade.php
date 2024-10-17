@@ -29,7 +29,7 @@
                 <ul class="list-disc list-inside mb-4">
                     @forelse ($ingredients as $index => $ingredient)
                         <li class="text-slate-700 flex justify-between items-center">
-                            {{ $ingredient }}
+                            > {{ $ingredient }}
                             <form
                                 action="{{ route('recipes.deleteIngredient', ['recipeId' => $recipe->id, 'ingredientIndex' => $index]) }}"
                                 method="POST">
