@@ -6,7 +6,11 @@
 
 @section('content')
         
-    <x-bladewind::notification />
+    <div class="flex flex-col items-center mt-2 mb-2">
+        <a href="{{ route('recipes.index') }}" title="My recipes" class="mr-2">
+            <x-bladewind::icon name="recipe-book" dir="assets/icons" class="h-10 w-10"/>
+        </a>
+    </div>
 
     <x-bladewind::card>
 
@@ -38,7 +42,7 @@
                     has_spinner="true"
                     type="primary"
                     can_submit="true"
-                    class="mt-3">
+                    class="mt-3" color="green" size="small">
                     Add recipe
                 </x-bladewind::button>
 

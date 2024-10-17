@@ -2,15 +2,18 @@
 @extends('layout')
 
     
-@section('pageTitle', 'List of Recipes')
+@section('pageTitle', 'My Recipes')
 
 @section('content')
 
+<div class="flex justify-center mb-4">
+    @include('partials.nav')
+</div>
+
 <div class="flex flex-col items-center mt-2 mb-2">
-    <a href="{{ route('recipes.create') }}" title="Create New Recipe" class="mr-2">
-        <x-bladewind::icon name="open-recipe-book" dir="assets/icons" class="h-8 w-8"/>
+    <a href="{{ route('recipes.create') }}" title="Create New Recipe" class="bg-green-500 text-white font-semibold py-1 px-4 text-sm rounded-md hover:bg-green-600 mr-2">
+        New Recipe
     </a>
-    
 </div>
 
     @foreach ($recipes as $recipe)
@@ -53,7 +56,7 @@
                         </div>
 
                         <div class="flex justify-center mt-2">
-                            <a href="{{ route('recipes.show', $recipe->id) }}"><x-bladewind::icon name="eye" /></a>
+                            <a href="{{ route('recipes.show', $recipe->id) }}"><x-bladewind::icon name="open-recipe-book" dir="assets/icons" class="h-10 w-10"/></a>
                         </div>
                     
 

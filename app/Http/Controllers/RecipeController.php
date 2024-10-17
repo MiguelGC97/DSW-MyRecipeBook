@@ -30,7 +30,7 @@ class RecipeController extends Controller
         if ($request->filled('image_url')) {
             $recipe->image_url = $request->input('image_url');
         } else {
-            $recipe->image_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/800px-Good_Food_Display_-_NCI_Visuals_Online.jpg';
+            $recipe->image_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/800px-No_image_available.svg.png';
         }
         $recipe->save();
 
@@ -60,12 +60,36 @@ class RecipeController extends Controller
         return redirect()->route('recipes.show', ['recipe' => $recipeId]);
     }
 
+    public function storeStep(Request $request, $recipeId)
+    {
+
+        $request->validate([
+            'step' => 'required|string|max:255',
+            
+        ], [
+            'step.required' => 'Please enter a step',
+            'step.max' => 'The step cannot exceed 1000 characters.',
+        ]);
+
+        $recipe = Recipe::find($recipeId);
+        $steps = json_decode($recipe->steps, true);
+
+        $newStep = $request->input('step');
+        $steps[] = $newStep;
+
+        $recipe->steps = json_encode($steps);
+        $recipe->save();
+
+        return redirect()->route('recipes.show', ['recipe' => $recipeId]);
+    }
+
     public function show($id)
     {
         $recipe = Recipe::findOrFail($id);
         $ingredients = json_decode($recipe->ingredients, true) ?? [];
+        $steps = json_decode($recipe->steps, true) ?? [];
         
-        return view('recipes.show', compact('recipe', 'ingredients'));
+        return view('recipes.show', compact('recipe', 'ingredients', 'steps'));
     }
 
     public function edit(Recipe $recipe)
@@ -101,6 +125,21 @@ class RecipeController extends Controller
         }
 
         $recipe->ingredients = json_encode(array_values($ingredients));
+        $recipe->save();
+
+        return redirect()->route('recipes.show', ['recipe' => $recipeId]);
+    }
+
+    public function destroyStep($recipeId, $stepIndex)
+    {
+        $recipe = Recipe::findOrFail($recipeId);
+        $steps = json_decode($recipe->steps, true);
+
+        if (isset($steps[$stepIndex])) {
+            unset($steps[$stepIndex]);
+        }
+
+        $recipe->steps = json_encode(array_values($steps));
         $recipe->save();
 
         return redirect()->route('recipes.show', ['recipe' => $recipeId]);

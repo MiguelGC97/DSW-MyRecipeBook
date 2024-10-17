@@ -1,5 +1,9 @@
 @extends('layout')
 
+<div class="flex justify-center mt-8 mb-4">
+    @include('partials.nav')
+</div>
+
 @section('pageTitle', $recipe->r_name)
 
 @section('content')
@@ -19,23 +23,26 @@
                     <a href="{{ route('recipes.edit', $recipe) }}">
                         <x-bladewind::icon name="pencil-square" />
                     </a>
-                    
+
                 </div>
             </div>
 
             <div class="mt-6 mb-4">
-                <h3 class="text-lg font-semibold text-blue-900 mb-4">Ingredients</h3>
+                <div style="background-color: rgb(245, 233, 196)" class="flex justify-center mb-4 mt-8">
+                    <h3 style="font-family: 'Pacifico', cursive; color:rgb(148, 75, 42)" class="text-center my-auto text-2xl">Ingredients</h3>
+                </div>
 
                 <ul class="list-disc list-inside mb-4">
                     @forelse ($ingredients as $index => $ingredient)
                         <li class="text-slate-700 flex justify-between items-center">
-                            > {{ $ingredient }}
+                            {{ $index + 1 }} - {{ $ingredient }}
                             <form
                                 action="{{ route('recipes.deleteIngredient', ['recipeId' => $recipe->id, 'ingredientIndex' => $index]) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500"><x-bladewind::icon name="backspace" size="tiny"/></button>
+                                <button type="submit" class="text-red-500"><x-bladewind::icon name="backspace"
+                                        size="tiny" /></button>
                             </form>
                         </li>
                     @empty
@@ -75,8 +82,57 @@
             </div>
 
             <div class="mt-4">
-                <h3 class="text-lg font-semibold text-blue-900">Steps</h3>
-                <p class="text-slate-700">[List of steps will go here]</p>
+
+                <div style="background-color: rgb(245, 233, 196)" class="flex justify-center mb-4 mt-8">
+                    <h3 style="font-family: 'Pacifico', cursive; color:rgb(148, 75, 42)" class="text-center my-auto text-2xl">Steps</h3>
+                </div>
+
+                <ul class="list-decimal list-inside mb-4">
+                    @forelse ($steps as $index => $step)
+                        <li class="text-slate-700 flex justify-between items-center">
+                            {{ $index + 1 }} - {{ $step }}
+                            <form
+                                action="{{ route('recipes.deleteStep', ['recipeId' => $recipe->id, 'stepIndex' => $index]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500"><x-bladewind::icon name="backspace"
+                                        size="tiny" /></button>
+                            </form>
+                        </li>
+                    @empty
+                        <li class="text-slate-700">No steps added yet.</li>
+                    @endforelse
+                </ul>
+
+                <div>
+
+                    <div id="step-form" class="mt-2">
+                        <x-bladewind::card>
+                            <form method="POST"
+                                action="{{ route('recipes.storeStep', ['recipeId' => $recipe->id]) }}"
+                                class="signup-form">
+                                @csrf
+                                <b class="mt-0">Add Step</b>
+                                <div class="text-center mt-2">
+                                    <x-bladewind::input required="true" name="step" type="text"
+                                        show_error_inline="true" label="Write a step here" />
+
+                                    @error('step')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="text-center">
+                                    <x-bladewind::button name="btn-save-2" has_spinner="true" type="primary" size="tiny"
+                                        color="green" outline="true" can_submit="true" class="mt-3">
+                                        <x-bladewind::icon name="check" />
+                                    </x-bladewind::button>
+                                </div>
+                            </form>
+                        </x-bladewind::card>
+                    </div>
+
+                </div>
             </div>
         </x-bladewind::card>
     </x-bladewind::centered-content>
