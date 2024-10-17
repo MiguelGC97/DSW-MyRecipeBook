@@ -37,9 +37,16 @@ class RecipeController extends Controller
         return redirect()->route('recipes.index');
     }
 
-    public function storeIngredient(Request $request)
+    public function storeIngredient(Request $request, $recipeId)
     {
-        $recipeId = $request->input('recipe_id');
+
+        $request->validate([
+            'ingredient' => 'required|string|max:255',
+            
+        ], [
+            'ingredient.required' => 'Please enter an ingredient',
+            'ingredient.max' => 'The ingredient cannot exceed 255 characters.',
+        ]);
 
         $recipe = Recipe::find($recipeId);
         $ingredients = json_decode($recipe->ingredients, true);
@@ -56,14 +63,13 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipe = Recipe::findOrFail($id);
+        $ingredients = json_decode($recipe->ingredients, true) ?? [];
         
-        return view('recipes.show', compact('recipe'));
+        return view('recipes.show', compact('recipe', 'ingredients'));
     }
 
-    public function edit($id)
+    public function edit(Recipe $recipe)
     {
-        $recipe = Recipe::findOrFail($id);
-        
         return view('recipes.edit', compact('recipe'));
     }
 
@@ -74,7 +80,7 @@ class RecipeController extends Controller
         $recipe->time = $request->input('time');
         $recipe->save();
 
-        return redirect()->route('recipes.index');
+        return redirect()->route('recipes.show', ['recipe' => $id]);
     }
 
     public function destroy($id)
@@ -84,4 +90,20 @@ class RecipeController extends Controller
 
         return redirect()->route('recipes.index');
     }
+
+    public function destroyIngredient($recipeId, $ingredientIndex)
+    {
+        $recipe = Recipe::findOrFail($recipeId);
+        $ingredients = json_decode($recipe->ingredients, true);
+
+        if (isset($ingredients[$ingredientIndex])) {
+            unset($ingredients[$ingredientIndex]);
+        }
+
+        $recipe->ingredients = json_encode(array_values($ingredients));
+        $recipe->save();
+
+        return redirect()->route('recipes.show', ['recipe' => $recipeId]);
+    }
+
 }

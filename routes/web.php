@@ -8,6 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::resource('recipes', RecipeController::class);
+Route::post('/recipes/{recipeId}/store-ingredient', [RecipeController::class, 'storeIngredient'])->name('recipes.storeIngredient');
 
-Route::post('/recipes', [RecipeController::class, 'storeIngredient'])->name('recipes.storeIngredient');
+Route::delete('/recipes/{recipeId}/ingredients/{ingredientIndex}', [RecipeController::class, 'destroyIngredient'])->name('recipes.deleteIngredient');
+
+Route::resource('recipes', RecipeController::class);

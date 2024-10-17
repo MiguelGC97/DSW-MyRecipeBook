@@ -39,9 +39,7 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <x-bladewind::button  
-                                        color="red" radius="full" size="tiny"  can_submit="true"> <x-bladewind::icon name="trash" />
-                                    </x-bladewind::button>
+                                    <button type="submit" class="text-red-500"><x-bladewind::icon name="backspace" size="tiny"/></button>
                                         
                                 </form>
                             </div>

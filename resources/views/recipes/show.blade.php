@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('pageTitle', $recipe->r_name) {{-- Utiliza el nombre de la receta para el título de la página --}}
+@section('pageTitle', $recipe->r_name)
 
 @section('content')
     <x-bladewind::centered-content size="medium">
@@ -14,32 +14,63 @@
                 <div class="text-base text-slate-500 mb-2">
                     <x-bladewind::icon name="clock" /> {{ $recipe->time }} mins
                 </div>
+
+                <div>
+                    <a href="{{ route('recipes.edit', $recipe) }}">
+                        <x-bladewind::icon name="pencil-square" />
+                    </a>
+                    
+                </div>
             </div>
 
-            <div class="mt-6">
-                <h3 class="text-lg font-semibold text-blue-900">Ingredients</h3>
+            <div class="mt-6 mb-4">
+                <h3 class="text-lg font-semibold text-blue-900 mb-4">Ingredients</h3>
 
-                <x-bladewind::card>
-                    <form method="POST" action="{{ route('recipes.storeIngredient') }}" class="signup-form">
-                        @csrf
-                        <b class="mt-0">New Ingredient</b>
-                        <div class="text-center">
-                            <x-bladewind::input required="true" name="ingredient" type="text"
-                                error_message="Please enter an ingredient" label="Ingredient - Qty (ex. Salt - A pinch)" />
+                <ul class="list-disc list-inside mb-4">
+                    @forelse ($ingredients as $index => $ingredient)
+                        <li class="text-slate-700 flex justify-between items-center">
+                            {{ $ingredient }}
+                            <form
+                                action="{{ route('recipes.deleteIngredient', ['recipeId' => $recipe->id, 'ingredientIndex' => $index]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500"><x-bladewind::icon name="backspace" size="tiny"/></button>
+                            </form>
+                        </li>
+                    @empty
+                        <li class="text-slate-700">No ingredients added yet.</li>
+                    @endforelse
+                </ul>
 
-                                <x-bladewind::input required="true" name="recipe_id" type="hidden"
-                                value="{{ $recipe->id }}" />
-                        </div>
+                <div>
 
-                        <div class="text-center">
+                    <div id="ingredient-form" class="mt-2">
+                        <x-bladewind::card>
+                            <form method="POST"
+                                action="{{ route('recipes.storeIngredient', ['recipeId' => $recipe->id]) }}"
+                                class="signup-form">
+                                @csrf
+                                <b class="mt-0">Add Ingredient</b>
+                                <div class="text-center mt-2">
+                                    <x-bladewind::input required="true" name="ingredient" type="text"
+                                        show_error_inline="true" label="Ingredient - Qty (ex. Salt - A pinch)" />
 
-                            <x-bladewind::button name="btn-save" has_spinner="true" type="primary" size="tiny"
-                                can_submit="true" class="mt-3">
-                                Add ingredient
-                            </x-bladewind::button>
+                                    @error('ingredient')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="text-center">
+                                    <x-bladewind::button name="btn-save" has_spinner="true" type="primary" size="tiny"
+                                        color="green" outline="true" can_submit="true" class="mt-3">
+                                        <x-bladewind::icon name="check" />
+                                    </x-bladewind::button>
+                                </div>
+                            </form>
+                        </x-bladewind::card>
+                    </div>
 
-                        </div>
-                </x-bladewind::card>
+                </div>
 
             </div>
 
@@ -49,4 +80,5 @@
             </div>
         </x-bladewind::card>
     </x-bladewind::centered-content>
+
 @endsection
