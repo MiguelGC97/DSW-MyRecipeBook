@@ -17,7 +17,11 @@
 
                 <div class="text-base text-slate-500 mb-2">
                     <x-bladewind::icon name="clock" /> {{ $recipe->time }} mins
+
+                    <x-bladewind::icon name="{{ $typeLabel }}" dir="assets/icons" class="h-8 w-8 ml-3"/>
                 </div>
+
+
 
                 <div>
                     <a href="{{ route('recipes.edit', $recipe) }}">

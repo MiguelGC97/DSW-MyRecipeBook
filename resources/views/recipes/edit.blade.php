@@ -27,6 +27,8 @@
 
             <x-bladewind::input name="image_url" required="false" label="Image url (Optional)" value="{{ $recipe->image_url !== 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/800px-No_image_available.svg.png' ? $recipe->image_url : '' }}"  />
 
+            <x-bladewind::select name="type" label="Select a category" :data="$types" selected_value="{{ $recipe->type }}"/>
+
             <div class="text-center">
 
                 <div class="flex justify-center items-center">

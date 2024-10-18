@@ -30,6 +30,8 @@
 
             <x-bladewind::input name="image_url" required="false" label="Image url (Optional)" />
 
+            <x-bladewind::select name="type" label="Select a category" :data="$types" />
+
             <div class="text-center">
 
                 <x-bladewind::button name="btn-save" has_spinner="true" type="primary" can_submit="true" class="mt-3"

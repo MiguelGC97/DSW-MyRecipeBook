@@ -16,6 +16,16 @@
     </a>
 </div>
 
+<x-bladewind::card class="w-full mb-1">
+    <div class="flex flex-col items-center mt-2 mb-2 max-w-xs mx-auto px-2">
+        <form method="GET" action="{{ route('recipes.index') }}" class="mb-4 w-full max-w-xs"> 
+            <label for="type" class="mr-2 text-sm">Filter by Category:</label> 
+            <x-bladewind::select name="type" label="Select a category" :data="$types" class="text-sm" /> 
+            <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded text-sm">Filter</button>
+        </form>
+    </div>
+</x-bladewind::card>
+
     @foreach ($recipes as $recipe)
 
     <div class="flex flex-col w-full items-center space-y-4">
@@ -56,7 +66,9 @@
                         </div>
 
                         <div class="flex justify-center mt-2">
-                            <a href="{{ route('recipes.show', $recipe->id) }}"><x-bladewind::icon name="open-recipe-book" dir="assets/icons" class="h-8 w-8"/></a>
+                            <a href="{{ route('recipes.show', $recipe->id) }}">
+                                <x-bladewind::icon name="open-recipe-book" dir="assets/icons" class="h-8 w-8"/>
+                            </a>
                         </div>
                     
 

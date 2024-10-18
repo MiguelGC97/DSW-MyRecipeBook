@@ -13,7 +13,8 @@ class Recipe extends Model
         'r_name',
         'time',
         'image_url',
+        'type',
         'ingredients',
-        'steps'
+        'steps',
     ];
 }

@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('r_name');
             $table->integer('time');
-            $table->text('image_url')->nullable();
+            $table->text('image_url');
             $table->json('ingredients')->nullable();
             $table->json('steps')->nullable();
+            $table->string('type');
             $table->timestamps();
         });
     }
