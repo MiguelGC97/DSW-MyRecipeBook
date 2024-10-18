@@ -1,14 +1,12 @@
-
-
 @extends('layout')
-    
+
 @section('pageTitle', 'New Recipe')
 
 @section('content')
-        
+
     <div class="flex flex-col items-center mt-2 mb-2">
         <a href="{{ route('recipes.index') }}" title="My recipes" class="mr-2">
-            <x-bladewind::icon name="recipe-book" dir="assets/icons" class="h-10 w-10"/>
+            <x-bladewind::icon name="recipe-book" dir="assets/icons" class="h-8 w-8" />
         </a>
     </div>
 
@@ -18,31 +16,24 @@
 
             @csrf
 
-            <x-bladewind::input
-                name="r_name"
-                required="true"
-                label="Name"
-                error_message="The recipe needs to have a name" />
+            @error('r_name')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
 
-                <x-bladewind::input
-                    name="time"
-                    required="true"
-                    label="Time" 
-                    error_message="The recipe needs to have a time"/>
+            <x-bladewind::input name="r_name" required="true" show_error_inline="true" label="Recipe name" />
 
-                <x-bladewind::input
-                    name="image_url"
-                    required="false"
-                    label="Image url"/>
+            @error('time')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+
+            <x-bladewind::input name="time" required="true" show_error_inline="true" label="Elaboration time (mins)" />
+
+            <x-bladewind::input name="image_url" required="false" label="Image url (Optional)" />
 
             <div class="text-center">
 
-                <x-bladewind::button
-                    name="btn-save"
-                    has_spinner="true"
-                    type="primary"
-                    can_submit="true"
-                    class="mt-3" color="green" size="small">
+                <x-bladewind::button name="btn-save" has_spinner="true" type="primary" can_submit="true" class="mt-3"
+                    color="green" size="small">
                     Add recipe
                 </x-bladewind::button>
 
@@ -53,4 +44,3 @@
     </x-bladewind::card>
 
 @endsection
-

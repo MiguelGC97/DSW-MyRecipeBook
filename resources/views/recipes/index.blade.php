@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="flex justify-center mt-2">
-                            <a href="{{ route('recipes.show', $recipe->id) }}"><x-bladewind::icon name="open-recipe-book" dir="assets/icons" class="h-10 w-10"/></a>
+                            <a href="{{ route('recipes.show', $recipe->id) }}"><x-bladewind::icon name="open-recipe-book" dir="assets/icons" class="h-8 w-8"/></a>
                         </div>
                     
 

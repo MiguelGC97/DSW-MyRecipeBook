@@ -13,11 +13,19 @@
             @csrf
             @method('PATCH')
 
-            <x-bladewind::input name="r_name" required="true" label="Name" value="{{ $recipe->r_name }}" />
+            @error('r_name')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
 
-            <x-bladewind::input name="time" required="true" label="Time" value="{{ $recipe->time }}" />
+            <x-bladewind::input name="r_name" required="true" show_error_inline="true" label="Recipe name" value="{{ $recipe->r_name }}" />
 
-            <x-bladewind::input name="image_url" required="false" label="Image url" value="{{ $recipe->image_url }}" />
+            @error('time')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+
+            <x-bladewind::input name="time" required="true" show_error_inline="true" label="Elaboration time (mins)" value="{{ $recipe->time }}" />
+
+            <x-bladewind::input name="image_url" required="false" label="Image url (Optional)" value="{{ $recipe->image_url !== 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/800px-No_image_available.svg.png' ? $recipe->image_url : '' }}"  />
 
             <div class="text-center">
 

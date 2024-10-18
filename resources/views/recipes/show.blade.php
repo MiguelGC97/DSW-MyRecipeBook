@@ -55,10 +55,10 @@
                     <div id="ingredient-form" class="mt-2">
                         <x-bladewind::card>
                             <form method="POST"
-                                action="{{ route('recipes.storeIngredient', ['recipeId' => $recipe->id]) }}"
+                                action="{{ route('recipes.storeIngredient', ['recipeId' => $recipe->id]) }}#scroll-ingr"
                                 class="signup-form">
                                 @csrf
-                                <b class="mt-0">Add Ingredient</b>
+                                <b class="mt-0" id="scroll-ingr">Add Ingredient</b>
                                 <div class="text-center mt-2">
                                     <x-bladewind::input required="true" name="ingredient" type="text"
                                         show_error_inline="true" label="Ingredient - Qty (ex. Salt - A pinch)" />
@@ -110,10 +110,10 @@
                     <div id="step-form" class="mt-2">
                         <x-bladewind::card>
                             <form method="POST"
-                                action="{{ route('recipes.storeStep', ['recipeId' => $recipe->id]) }}"
+                                action="{{ route('recipes.storeStep', ['recipeId' => $recipe->id]) }}#scroll-step"
                                 class="signup-form">
                                 @csrf
-                                <b class="mt-0">Add Step</b>
+                                <b class="mt-0" id="scroll-step">Add Step</b>
                                 <div class="text-center mt-2">
                                     <x-bladewind::input required="true" name="step" type="text"
                                         show_error_inline="true" label="Write a step here" />

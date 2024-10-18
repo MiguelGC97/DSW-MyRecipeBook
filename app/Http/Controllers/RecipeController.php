@@ -24,6 +24,19 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'r_name' => 'required|string|max:255',
+            'time' => 'required|integer|max:20',
+            
+        ], [
+            'r_name.required' => 'Please enter a name',
+            'time.required' => 'Please enter a time',
+            'time.integer' => 'Please enter an integer',
+            'r_name.max' => 'The name cannot exceed 255 characters.',
+            'time.max' => 'The name cannot exceed 20 characters.',
+        ]);
+
         $recipe = new Recipe;
         $recipe->r_name = $request->input('r_name');
         $recipe->time = $request->input('time');
@@ -102,6 +115,11 @@ class RecipeController extends Controller
         $recipe = Recipe::findOrFail($id);
         $recipe->r_name = $request->input('r_name');
         $recipe->time = $request->input('time');
+        if ($request->filled('image_url')) {
+            $recipe->image_url = $request->input('image_url');
+        } else {
+            $recipe->image_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/800px-No_image_available.svg.png';
+        }
         $recipe->save();
 
         return redirect()->route('recipes.show', ['recipe' => $id]);
